@@ -3,9 +3,10 @@ import HomePage from "./home/home";
 import { Menu, Image, Card, Space, Row, Col, Input, Typography, List, Carousel, Button } from "antd";
 import { useState } from "react";
 import './page.less';
+import Header from './components/Header/page';
 import { LeftOutlined, RightOutlined ,MenuOutlined} from '@ant-design/icons';
+// import Seminar from "./seminar/page";
 export default function Home() {
-  const [current, setCurrent] = useState('Home');
   const { Text, Title } = Typography;
   const { Search } = Input;
   const [content1, setContent1] = useState([
@@ -245,32 +246,7 @@ export default function Home() {
     },
   ]);
 
-  const items = [
-    {
-      label: 'ホーム',
-      key: 'Home',
-    },
-    {
-      label: '選ばれる理由',
-      key: 'whyChooseUse',
-    },
-    {
-      label: 'サービス紹介',
-      key: 'Service',
-    }, {
-      label: '導入実績',
-      key: 'Track_Record',
-    }, {
-      label: '会社概要',
-      key: 'Profile',
-    }, {
-      label: 'ブログ',
-      key: 'Blog',
-    }, {
-      label: 'お役立ち情報',
-      key: 'Information_Related',
-    }
-  ];
+
 
   const [faqItems, setFaqItems] = useState([
     {
@@ -298,16 +274,15 @@ export default function Home() {
       id: 'faq6',
     },
   ]);
-  const clickMenu = (e) => {
-    console.log('click ', e);
-    setCurrent(e.key);
-  };
+
   return (
     <div
       className='Home_page'
     // className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20"
     >
-      <div
+      {/* <Seminar /> */}
+      <Header />
+      {/* <div
         className="Home_page_topContext"
         style={{
           margin: '0 20px',
@@ -361,7 +336,7 @@ export default function Home() {
           >
           </Button>
           </div>
-      </div>
+      </div> */}
 
       <div className="Home_page_content1">
         {
@@ -1008,7 +983,7 @@ export default function Home() {
               >Japan Bangla Bridge Company（JBBC）</span>は、特にバングラデシュをはじめとする海外の優秀な人材を日本でのキャリア機会に結びつけることに特化した、信頼される採用・企業です。</p>
               <div className="Home_page_content12-social-icons">
                 <span ><img src="/home/facebook.png" /></span>
-                <span ><img span src="/home/play.png" /></span>
+                <span ><img  src="/home/play.png" /></span>
                 <span ><img src="/home/in.png" /></span>
                 <span ><img src='/home/instagram.png' /></span>
               </div>
