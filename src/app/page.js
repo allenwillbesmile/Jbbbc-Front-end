@@ -10,44 +10,25 @@ export default function Home() {
   const { Text, Title } = Typography;
   const { Search } = Input;
   const [content1, setContent1] = useState([
-    {
-      title: 'Home',
-      content: 'Home',
-      image: '/home/some.png',
-      name: 'ロキ',
-      age: '20歳',
-      job: "建設業",
-      skill: "技能実習生",
-      location: "横浜",
-    }, {
-      title: 'whyChooseUse',
-      content: 'whyChooseUse',
-      image: '/home/some.png',
-      name: 'ロキ',
-      age: '20歳',
-      job: "建設業",
-      skill: "技能実習生",
-      location: "横浜",
+   {
+      src: '/home/imagePerson1.png',
+      text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
+      color: '#fff'
     },
     {
-      title: 'Service',
-      content: 'Service',
-      image: '/home/some.png',
-      name: 'ロキ',
-      age: '20歳',
-      job: "建設業",
-      skill: "技能実習生",
-      location: "横浜",
+       src: '/home/imagePerson2.png',
+      text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
+      color: '#fff'
     },
     {
-      title: 'Track_Record',
-      content: 'Track_Record',
-      image: '/home/some.png',
-      name: 'ロキ',
-      age: '20歳',
-      job: "建設業",
-      skill: "技能実習生",
-      location: "横浜",
+       src: '/home/imagePerson3.png',
+      text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
+      color: '#000'
+    },
+    {
+      src: '/home/imagePerson4.png',
+      text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
+      color: '#00f'
     }
   ]);
   const [content2, setContent2] = useState([
@@ -341,14 +322,22 @@ export default function Home() {
       <div className="Home_page_content1"
       >
         
-        <Image src='/home/indImage.png' preview={false}
-          style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: "25px",
-            marginTop: "20px",
-          }}
-        />
+       <Row gutter={[16, 16]}>
+        {content1.map((image, index) => (
+          <Col key={index} span={6}>
+            <div className="custom-card" bordered={false}>
+              <div className="card-content">
+                <img src={image.src} alt={`Person ${index + 1}`} className="card-image" />
+                <div className="card-text" style={{ color: "#ffff" }}>
+                  {image.text.split('\n').map((line, idx) => (
+                    <span key={idx}>{line}<br /></span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Col>
+        ))}
+      </Row>
         {/* {
           content1.map((item, index) => {
             return (
