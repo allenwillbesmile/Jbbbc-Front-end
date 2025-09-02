@@ -70,6 +70,7 @@ export default function Header() {
                         onClick={clickMenu}
                         selectedKeys={current}
                         mode="horizontal"
+                        inlineCollapsed={false}
                         items={items} />
                     <Button
                         size='large'
