@@ -338,8 +338,18 @@ export default function Home() {
           </div>
       </div> */}
 
-      <div className="Home_page_content1">
-        {
+      <div className="Home_page_content1"
+      >
+        
+        <Image src='/home/indImage.png' preview={false}
+          style={{
+            width: "100%",
+            height: "auto",
+            borderRadius: "25px",
+            marginTop: "20px",
+          }}
+        />
+        {/* {
           content1.map((item, index) => {
             return (
               <div
@@ -361,7 +371,7 @@ export default function Home() {
               </div>
             )
           })
-        }
+        } */}
       </div>
       <div className="Home_page_content2">
         <div className="Home_page_content2_context"  >
@@ -821,7 +831,6 @@ export default function Home() {
                 key={index}
                 cover={<img className='Home_page_content10_blogImage' alt="example" src={post.image} />}
                 className='Home_page_content10_blogPost'>
-                {/* <img src={post.image} alt={post.title} className='Home_page_content10_blogImage' /> */}
                 <div className='Home_page_content10_blogContent'>
                   <Text className='Home_page_content10_blogTag' type="secondary">{post.tag}</Text>
                   <Title style={{ margin: '0' }} level={4}>{post.title}</Title>
