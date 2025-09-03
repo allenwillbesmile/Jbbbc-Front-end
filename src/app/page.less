@@ -31,6 +31,30 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
+        height: 500px;
+
+        /* 淡入淡出动画 */
+            @keyframes fadeInOut {
+                0% {
+                    opacity: 0;
+                }
+        
+                50% {
+                    opacity: 1;
+                }
+        
+                100% {
+                    opacity: 0;
+                }
+            }
+        
+            .fadeInOut {
+                animation: fadeInOut 3s ease-in-out forwards;
+            }
+        
+            .hidden {
+                display: none;
+            }
 
         .custom-card {
             position: relative;

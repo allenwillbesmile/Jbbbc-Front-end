@@ -1,7 +1,7 @@
 'use client'; // 👈 添加这一行
 import HomePage from "./home/home";
 import { Menu, Image, Card, Space, Row, Col, Input, Typography, List, Carousel, Button } from "antd";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import './page.less';
 import Header from './components/Header/page';
 import { LeftOutlined, RightOutlined ,MenuOutlined} from '@ant-design/icons';
@@ -9,28 +9,69 @@ import { LeftOutlined, RightOutlined ,MenuOutlined} from '@ant-design/icons';
 export default function Home() {
   const { Text, Title } = Typography;
   const { Search } = Input;
-  const [content1, setContent1] = useState([
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentStep, setCurrentStep] = useState(3);
+      const [phase, setPhase] = useState(0); // 'show', 'fade-to-white', 'next'
+
+  // 合并所有轮播内容：6个卡片 + 2张图片
+   const [content1, setContent1] = useState([
    {
-      src: '/home/imagePerson1.png',
+      src: '/home/imagePersona.png',
       text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
       color: '#fff'
     },
     {
-       src: '/home/imagePerson2.png',
+       src: '/home/imagePersonb.png',
       text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
       color: '#fff'
     },
     {
-       src: '/home/imagePerson3.png',
+       src: '/home/imagePersonc.png',
       text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
       color: '#000'
     },
     {
-      src: '/home/imagePerson4.png',
+      src: '/home/imagePersond.png',
       text: 'ロキ\n20歳\n建設業\n技能実習生\n横浜',
       color: '#00f'
     }
   ]);
+  const carouselItems = [
+    ...content1.map((image, index) => ({
+      type: 'card',
+      src: image.src,
+      text: image.text,
+      key: `card-${index}`,
+    })),
+    {
+      type: 'image',
+      src: '/home/indimage.png',
+      key: 'img1',
+    },
+    {
+      type: 'image',
+      src: '/home/indimage2.png',
+      key: 'img2',
+    },
+  ];
+
+
+  useEffect(() => {
+    // 设置定时器来改变显示的内容
+    const timer = setInterval(() => {
+      setPhase(prevPhase => prevPhase==2 ? 0 : (prevPhase + 1) % 4); // 循环4个阶段：初始，第一段，第二段，第三段
+    }, 3000); // 每3秒切换一次
+
+    return () => clearInterval(timer); // 清除定时器
+  }, []);
+
+  useEffect(() => { 
+    console.log(phase,"phase");
+    
+  }, [phase]);
+
+
+ 
   const [content2, setContent2] = useState([
     {
       title: '受入企業',
@@ -263,69 +304,15 @@ export default function Home() {
     >
       {/* <Seminar /> */}
       <Header />
-      {/* <div
-        className="Home_page_topContext"
-        style={{
-          margin: '0 20px',
-        }}
-      >
-        <img
-          className="Home_page_jbbcIcon"
-          src="/home/jbbcIcon.png"
-        />
-        <div
-        style={{
-          float:"right"
-        }}
-        >
-        <Menu
-          className="Home_page_menu"
-          onClick={clickMenu}
-          selectedKeys={current}
-          mode="horizontal"
-          items={items} />
-          <Button 
-          size='large'
-          style={{
-            background:"#EE6629",
-            color:'white',
-            borderRadius: "0px",
-            height: "60px",
-            display: 'inline-block',
-          }}
+  
           
-          icon={<Image
-            style={{
-              width: "20px",
-            }}
-            src="/home/notes.png" />}
-          >
-            お問い合わせ
-          </Button>
-          <Button 
-          size='large'
-          style={{
-            background:"#212121",
-            color:'white',
-            borderRadius: "0px",
-            height: "60px",
-            width:"60px",
-            display: 'inline-block',
-          }}
-          
-          icon={<MenuOutlined />}
-          >
-          </Button>
-          </div>
-      </div> */}
 
       <div className="Home_page_content1"
       >
-        
        <Row gutter={[16, 16]}>
-        {content1.map((image, index) => (
-          <Col key={index} span={6}>
-            <div className="custom-card" bordered={false}>
+         {(phase === 0) && content1.map((image, index) => (
+          <Col key={index} span={6} className="fadeInOut">
+            <div className="custom-card" >
               <div className="card-content">
                 <img src={image.src} alt={`Person ${index + 1}`} className="card-image" />
                 <div className="card-text" style={{ color: "#ffff" }}>
@@ -337,30 +324,37 @@ export default function Home() {
             </div>
           </Col>
         ))}
-      </Row>
-        {/* {
-          content1.map((item, index) => {
-            return (
-              <div
-             
-                key={index}
-                style={{
-                  display: 'inline-block',
-                  width: '300px',
-                  height: '425px',
-                  margin: '25px'
-                }}>
-                <Image src={item.image} preview={false} />
-                <div className="Home_page_content1-text">
-                  <p>{item.name}</p>
-                  <p>{item.age}</p>
-                  <p>{item.job}</p>
-                  <p>{item.location}</p>
+      {phase === 1 && 
+        <Col span={24} className="fadeInOut">
+          <img width={1240} src='/home/indimage.png' className="card-image"  />
+        </Col>}
+      {phase === 2 &&
+        <Col span={24} className="fadeInOut" style={{padding: '10px'}}>
+          <img  src='/home/indimage2.png'  className="card-image" style={{height: '478px', width: '1240px'}}  />
+        </Col>
+       } 
+     {/* {content1.map((image, index) => (
+          <Col key={index} span={6}>
+            <div className="custom-card" >
+              <div className="card-content">
+                <img src={image.src} alt={`Person ${index + 1}`} className="card-image" />
+                <div className="card-text" style={{ color: "#ffff" }}>
+                  {image.text.split('\n').map((line, idx) => (
+                    <span key={idx}>{line}<br /></span>
+                  ))}
                 </div>
               </div>
-            )
-          })
-        } */}
+            </div>
+          </Col>
+        ))}
+        <Col span={24}> 
+          <img src='/home/indimage.png'  className="card-image" style={{ height:'auto' }} />
+        </Col>
+        <Col span={24}> 
+          <img src='/home/indimage2.png'  className="card-image" />
+        </Col> */}
+        
+      </Row>
       </div>
       <div className="Home_page_content2">
         <div className="Home_page_content2_context"  >

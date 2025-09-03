@@ -17,7 +17,7 @@ export default function Header() {
         console.log('click ', e);
         setCurrent(e.key);
         if (e.key === 'menu_button1') {
-                router.push('/seminar'); 
+            router.push('/seminar');
         }
     };
 
@@ -56,6 +56,11 @@ export default function Header() {
                 className="Home_page_topContext"
                 style={{
                     margin: '0 20px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    // 防止父容器压缩
+                    minWidth: '100%',
                 }}
             >
                 <img
@@ -63,20 +68,24 @@ export default function Header() {
                     src="/home/jbbcIcon.png"
                 />
                 <div
-                    style={{ float: "right" }}
+                    // style={{ alignItems: "right",width: "80% ", }}
                 >
                     <Menu
                         className="Home_page_menu"
                         onClick={clickMenu}
                         selectedKeys={current}
                         mode="horizontal"
-                        inlineCollapsed={false}
+                        style={{
+                            minWidth: 'fit-content', // 不随容器压缩
+                            lineHeight: '48px',
+                            border: 'none',
+                        }}
                         items={items} />
                     <Button
                         size='large'
                         className="Home_page_menu_button1"
                         icon={<Image style={{ width: "20px", }} src="/home/notes.png" />}
-                        onClick={()=>clickMenu({ key: 'menu_button1' })}
+                        onClick={() => clickMenu({ key: 'menu_button1' })}
                     >
                         お問い合わせ
                     </Button>
