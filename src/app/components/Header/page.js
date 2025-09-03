@@ -4,7 +4,7 @@ import { Menu, Image, Card, Space, Row, Col, Input, Typography, List, Carousel, 
 
 import './page.less';
 import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation'; // 引入 useRouter
 
 
@@ -12,10 +12,10 @@ export default function Header(props) {
     const { Text, Title } = Typography;
     const [current, setCurrent] = useState('Home');
     const router = useRouter(); // 初始化 useRouter
-    const{currentIndex} = props;
+    const { currentIndex } = props;
 
     useEffect(() => {
-         currentIndex&&   setCurrent(currentIndex);
+        currentIndex && setCurrent(currentIndex);
     }, [currentIndex]);
     const clickMenu = (e) => {
         console.log('click ', e);
@@ -64,47 +64,59 @@ export default function Header(props) {
             <div
                 className="Home_page_topContext"
                 style={{
-                    margin: '0 20px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    // 防止父容器压缩
-                    minWidth: '100%',
+                    // margin: '0 20px',
+                    // display: 'flex',
+                    // justifyContent: 'space-between',
+                    // alignItems: 'center',
+                    // // 防止父容器压缩
+                    // minWidth: '100%',
                 }}
             >
-                <img
+                <Row>
+                    <Col span={4}>
+                        <img
+                            className="Home_page_jbbcIcon"
+                            src="/home/jbbcIcon.png"
+                        />
+                    </Col>
+                    <Col span={20} style={{ alignItems: "right"  }}>
+                        <div
+                        style={{ alignItems: "right", display: "flex", justifyContent: "right" }}
+                        >
+                            <Menu
+                                className="Home_page_menu"
+                                onClick={clickMenu}
+                                selectedKeys={current}
+                                mode="horizontal"
+                                style={{
+                                    minWidth: 'fit-content', // 不随容器压缩
+                                    lineHeight: '48px',
+                                    border: 'none',
+                                }}
+                                items={items} />
+                            <Button
+                                size='large'
+                                className="Home_page_menu_button1"
+                                icon={<Image style={{ width: "20px", }} src="/home/notes.png" />}
+                                onClick={() => clickMenu({ key: 'menu_button1' })}
+                            >
+                                お問い合わせ
+                            </Button>
+                            <Button
+                                size='large'
+                                className="Home_page_menu_button2"
+                                icon={<MenuOutlined />}
+                            >
+                            </Button>
+                        </div>
+                    </Col>
+
+                </Row>
+                {/* <img
                     className="Home_page_jbbcIcon"
                     src="/home/jbbcIcon.png"
-                />
-                <div
-                    // style={{ alignItems: "right",width: "80% ", }}
-                >
-                    <Menu
-                        className="Home_page_menu"
-                        onClick={clickMenu}
-                        selectedKeys={current}
-                        mode="horizontal"
-                        style={{
-                            minWidth: 'fit-content', // 不随容器压缩
-                            lineHeight: '48px',
-                            border: 'none',
-                        }}
-                        items={items} />
-                    <Button
-                        size='large'
-                        className="Home_page_menu_button1"
-                        icon={<Image style={{ width: "20px", }} src="/home/notes.png" />}
-                        onClick={() => clickMenu({ key: 'menu_button1' })}
-                    >
-                        お問い合わせ
-                    </Button>
-                    <Button
-                        size='large'
-                        className="Home_page_menu_button2"
-                        icon={<MenuOutlined />}
-                    >
-                    </Button>
-                </div>
+                /> */}
+
             </div>
         </>
     );
