@@ -4,19 +4,23 @@ import { Menu, Image, Card, Space, Row, Col, Input, Typography, List, Carousel, 
 
 import './page.less';
 import { LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useRouter } from 'next/navigation'; // 引入 useRouter
 
 
-export default function Header() {
+export default function Header(props) {
     const { Text, Title } = Typography;
     const [current, setCurrent] = useState('Home');
     const router = useRouter(); // 初始化 useRouter
+    const{currentIndex} = props;
 
+    useEffect(() => {
+         currentIndex&&   setCurrent(currentIndex);
+    }, [currentIndex]);
     const clickMenu = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
-        if (e.key === 'menu_button1') {
+        if (e.key === 'Seminar') {
             router.push('/seminar');
         }
     };
@@ -39,7 +43,12 @@ export default function Header() {
         }, {
             label: '会社概要',
             key: 'Profile',
-        }, {
+        },
+        {
+            label: 'セミナー',
+            key: 'Seminar',
+        },
+        {
             label: 'ブログ',
             key: 'Blog',
         }, {

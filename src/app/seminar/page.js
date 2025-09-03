@@ -38,7 +38,7 @@ export default function Seminar() {
 
   return (
     <>
-     <Header />
+     <Header currentIndex={'Seminar'} />
       <div className="seminar_page">
         <Row>
           <Col span={24} >
